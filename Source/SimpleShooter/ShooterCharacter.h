@@ -7,7 +7,7 @@
 #include "ShooterCharacter.generated.h"
 
 UCLASS()
-class SIMPLESHOOTER_API AShooterCharacter : public ACharacter
+class SIMPLESHOOTER_API AShooterCharacter : public	 ACharacter
 {
 	GENERATED_BODY()
 
@@ -29,7 +29,10 @@ public:
 private:
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
-	void LookUp(float AxisValue);
-	void Turn(float AxisValue);
+	void LookUpRate(float AxisValue);
+	void LookRightRate(float AxisValue);
+	
+	UPROPERTY(EditAnywhere)
+	float RotationRate = 50.f;
 
 };
