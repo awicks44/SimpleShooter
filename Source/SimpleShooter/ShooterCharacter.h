@@ -28,6 +28,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
 private:
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
@@ -38,11 +40,19 @@ private:
 	UPROPERTY(EditAnywhere)
 	float RotationRate = 50.f;
 
+	UPROPERTY(EditDefaultsOnly)
+	float MaxHealth = 100.f;
+
+	UPROPERTY(VisibleAnywhere)
+	float Health;
+
 	UPROPERTY(EditDefaultsOnly) // we are only edting the gun at run time, so we shouldn't be able to change it ahead of time
 	TSubclassOf<AGun> GunClass;
 
 	UPROPERTY()
 	AGun * Gun;
+
+
 
 
 
