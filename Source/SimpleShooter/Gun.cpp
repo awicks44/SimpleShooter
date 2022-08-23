@@ -35,10 +35,25 @@ void AGun::PullTrigger()
 
 	OwnerController->GetPlayerViewPoint(Location, Rotation);
 
+	FVector Start = Location;
 	FVector End = Location + Rotation.Vector() * MaxRange;
 
-	DrawDebugCamera(GetWorld(), Location, Rotation, 90, 2, FColor::Red, true);
-	DrawDebugPoint(GetWorld(), Location, 20, FColor::Emerald, true);
+	// ECC_GameTraceChannel1
+	FHitResult Hit;
+	
+	bool bSuccess = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECollisionChannel::ECC_GameTraceChannel1);
+	
+	if (bSuccess) 
+	{
+		// this shows where was that shot coming from. 
+		// we can use Rotation.Vector because that represents the initial direction. Just take the inverse
+		FVector ShotDirection = -Rotation.Vector();
+		
+		if (ImpactEffect)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, ShotDirection.Rotation());
+		}		
+	}
 }
 
 // Called when the game starts or when spawned
