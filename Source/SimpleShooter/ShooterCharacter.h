@@ -22,6 +22,11 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
+
+	// same as bluperintcallable and then some
+	UFUNCTION(BlueprintPure)
+	bool IsDead() const;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
