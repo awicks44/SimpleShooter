@@ -21,10 +21,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	UPROPERTY()
-	APawn *PlayerPawn;
 
 	UPROPERTY(EditAnywhere)
-	float AcceptanceRadius = 200.f;
+	class UBehaviorTree * AIBehavior;
+
+
 	
 };
