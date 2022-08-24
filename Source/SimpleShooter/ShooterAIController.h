@@ -25,6 +25,12 @@ private:
 	UPROPERTY(EditAnywhere)
 	class UBehaviorTree * AIBehavior;
 
+	UPROPERTY(VisibleAnywhere)
+	class UBlackboardComponent *BB;
+
+	UPROPERTY()
+	APawn *PlayerPawn; 
+
 
 	
 };
