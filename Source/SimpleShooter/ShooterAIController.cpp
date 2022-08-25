@@ -30,16 +30,4 @@ void AShooterAIController::BeginPlay()
 void AShooterAIController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);    
-
-    if (PlayerPawn == nullptr || BB == nullptr) return;
-
-    if (LineOfSightTo(PlayerPawn))
-    {
-        BB->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
-        BB->SetValueAsVector(TEXT("LastKnownPlayerLocation"), PlayerPawn->GetActorLocation());
-    }
-    else 
-    {
-        BB->ClearValue(TEXT("PlayerLocation"));
-    }
 }
