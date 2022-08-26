@@ -21,6 +21,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	float RestartDelay = 5.0f;
 
+	// make a tsubsclass restrics the type of class we can spawn
+	// in this case, we can only spawn UUserWidget C++ classes or blueprints of type UUserWidgets
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UUserWidget> LoseScreenClass;
 
