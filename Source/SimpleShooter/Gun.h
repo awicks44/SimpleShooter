@@ -54,4 +54,6 @@ private:
 
 	AController * GetOwnerController() const;
 
+	
+
 };

@@ -5,9 +5,21 @@
 #include "TimerManager.h"
 #include "Blueprint/UserWidget.h"
 
+void AShooterPlayerController::BeginPlay()
+{
+    HUDScreen = CreateWidget(this, HUDScreenClass);
+
+    if (HUDScreen != nullptr)
+    {
+        HUDScreen->AddToViewport();
+    }
+}
+
 void AShooterPlayerController::GameHasEnded(class AActor* EndGameFocus, bool bIsWinner)
 {
     Super::GameHasEnded(EndGameFocus, bIsWinner);
+
+    HUDScreen->RemoveFromViewport();
 
     if (bIsWinner)
     {
@@ -32,3 +44,5 @@ void AShooterPlayerController::GameHasEnded(class AActor* EndGameFocus, bool bIs
 
     GetWorldTimerManager().SetTimer(RestartTimer, this, &APlayerController::RestartLevel, RestartDelay);
 }
+
+

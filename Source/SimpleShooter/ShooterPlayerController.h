@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "ShooterPlayerController.generated.h"
 
+class UUserWidget;
 /**
  * 
  */
@@ -13,6 +14,9 @@ UCLASS()
 class SIMPLESHOOTER_API AShooterPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void BeginPlay() override;
 
 public:
 	virtual void GameHasEnded(class AActor* EndGameFocus = nullptr, bool bIsWinner = false) override;
@@ -24,12 +28,18 @@ private:
 	// make a tsubsclass restrics the type of class we can spawn
 	// in this case, we can only spawn UUserWidget C++ classes or blueprints of type UUserWidgets
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class UUserWidget> LoseScreenClass;
+	TSubclassOf<UUserWidget> LoseScreenClass;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class UUserWidget> WinScreenClass;
+	TSubclassOf<UUserWidget> WinScreenClass;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> HUDScreenClass;
 
 	FTimerHandle RestartTimer;
+
+	UPROPERTY()
+	UUserWidget * HUDScreen;
+	
 	
 };
