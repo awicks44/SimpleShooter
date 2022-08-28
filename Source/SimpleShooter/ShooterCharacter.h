@@ -27,6 +27,10 @@ public:
 	UFUNCTION(BlueprintPure)
 	bool IsDead() const;
 
+	// same as bluperintcallable and then some
+	UFUNCTION(BlueprintPure)
+	float GetHealthPercent() const;
+
 	void Shoot();
 
 	// Called every frame
