@@ -5,6 +5,7 @@
 #include "GameFramework/PlayerController.h"
 #include "EngineUtils.h"
 #include "GameFramework/Controller.h"
+#include "ShooterAIController.h"
 
 
 void AKillEmAllGamdeMode::PawnKilled(APawn * PawnKilled)
@@ -17,7 +18,20 @@ void AKillEmAllGamdeMode::PawnKilled(APawn * PawnKilled)
         UE_LOG(LogTemp, Warning, TEXT("Kill Em All Game Mode: Found Player Controller"));
 
         EndGame(false);
+
+        return;
     }
+
+    // for loop for shooterAI in the world
+    for (AShooterAIController * AIController: TActorRange<AShooterAIController>(GetWorld()))
+    {
+        if (!AIController->IsDead())
+            return;
+    }
+        // is not dead? 
+            // return early
+    EndGame(true);
+    // End Game (if no AI pawns are in the world)
 }
 
 void AKillEmAllGamdeMode::EndGame(bool bIsPlayerWinner)

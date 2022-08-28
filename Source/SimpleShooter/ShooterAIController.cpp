@@ -4,6 +4,7 @@
 #include "ShooterAIController.h"
 #include "Kismet/GameplayStatics.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "ShooterCharacter.h"
 
 
 void AShooterAIController::BeginPlay()
@@ -30,4 +31,17 @@ void AShooterAIController::BeginPlay()
 void AShooterAIController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);    
+}
+
+bool AShooterAIController::IsDead() const
+{
+    // we check to see if the pawn controlling the AI is a shooter character and we pass on the IsDead function
+    AShooterCharacter* ControlledCharacter = Cast<AShooterCharacter>(GetPawn());
+    if (ControlledCharacter != nullptr)
+    {
+        return ControlledCharacter->IsDead();
+    }
+
+    // otherwise, we just confirm the pawn is dead by passing true. This could happen because the pawn controller 'detaches' from it's AI when it dies
+    return true;
 }
