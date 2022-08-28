@@ -3,6 +3,8 @@
 
 #include "KillEmAllGamdeMode.h"
 #include "GameFramework/PlayerController.h"
+#include "EngineUtils.h"
+#include "GameFramework/Controller.h"
 
 
 void AKillEmAllGamdeMode::PawnKilled(APawn * PawnKilled)
@@ -14,6 +16,16 @@ void AKillEmAllGamdeMode::PawnKilled(APawn * PawnKilled)
     {
         UE_LOG(LogTemp, Warning, TEXT("Kill Em All Game Mode: Found Player Controller"));
 
-        PlayerController->GameHasEnded(nullptr, false);
+        EndGame(false);
     }
+}
+
+void AKillEmAllGamdeMode::EndGame(bool bIsPlayerWinner)
+{
+    for (AController* Controller : TActorRange<AController>(GetWorld()))
+    {
+        bool bIsWinner = Controller->IsPlayerController() == bIsPlayerWinner;
+        // change first input from false -> Controller->GetPawn because we want the focus of the camera to be on the winner
+        Controller->GameHasEnded(Controller->GetPawn(), bIsWinner);
+    }   
 }
